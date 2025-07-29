@@ -1,5 +1,7 @@
 # VideRouter
 
+a small thing i made for a failed plugin
+
 you need your own copy of vide, which is NOT provided
 
 ## Router.new()
