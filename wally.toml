@@ -1,0 +1,11 @@
+[package]
+name = "primiti-ve/viderouter"
+description = "basic UI routing library for Vide"
+authors = ["Primiti_ve"]
+
+version = "0.1.7"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+exclude = ["rokit.toml", "selene.toml", ".gitignore", "README.md", ".vscode"]
+
+[dependencies]
