@@ -101,7 +101,9 @@ function Router:render()
 			self._destroyer()
 		end
 
-		task.wait(tweenLength)
+		if self.tweenLength > 0 then
+			task.wait(self.tweenLength)
+		end
 
 		self._destroyer = self._vide.root(function()
 			local canvas = self._vide.create("CanvasGroup")({
@@ -115,24 +117,21 @@ function Router:render()
 
 			local frame = current(self)
 			frame.Parent = canvas
-
-			TweenService:Create(
-				canvas,
-				TweenInfo.new(tweenLength, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-				{ GroupTransparency = 0 }
-			):Play()
+			
+			Tween(canvas, self.tweenLength, { GroupTransparency = 0 })
 
 			self._vide.cleanup(function()
-				TweenService:Create(
-					canvas,
-					TweenInfo.new(tweenLength, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-					{ GroupTransparency = 1 }
-				):Play()
-
-				task.delay(tweenLength, function()
+				if self.tweenLength > 0 then
+					Tween(canvas, self.tweenLength, { GroupTransparency = 1 })
+					
+					task.delay(self.tweenLength, function()
+						frame:Destroy()
+						canvas:Destroy()
+					end)
+				else
 					frame:Destroy()
 					canvas:Destroy()
-				end)
+				end
 			end)
 		end)
 	else
